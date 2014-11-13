@@ -1,4 +1,22 @@
-.media-frame .mexp-content-wpslc_meetup_service .mexp-item {
+.media-frame .mexp-content.mexp-content-wpslc_meetup_service .mexp-item {
 	width: 100%;
 	text-align: left;
+	border-top: 1px solid #ccc;
+}
+
+.media-frame .mexp-content.mexp-content-wpslc_meetup_service .mexp-item:first-child {
+	border-top: none;
+}
+
+.media-frame .mexp-content.mexp-content-wpslc_meetup_service .mexp-item:hover {
+	background-color: #eee;
+}
+
+.media-frame .mexp-content.mexp-content-wpslc_meetup_service .meetup-group {
+	font-size: larger;
+	margin-right: 1em;
+}
+
+.media-frame .mexp-content.mexp-content-wpslc_meetup_service .event-time {
+	font-style: italic;
 }
