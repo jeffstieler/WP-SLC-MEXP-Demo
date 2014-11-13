@@ -125,6 +125,31 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 		// Create the response for the API
 		$response = new MEXP_Response();
 
+		$item = new MEXP_Response_Item();
+
+		$item->set_id( '217604542' );
+		$item->set_url( 'http://www.meetup.com/SLC-WordPress-Meetup-Group/events/217604542/' );
+		$item->set_content( 'November 19th — Jeff Stieler — Better embeds with the Media Explorer' );
+		$item->set_date( 1416448800 - 25200 );
+		$item->set_date_format( 'g:i A - j M y' );
+
+		$item->add_meta( 'description', '<p>Using the Media Explorer plugin for better embeds from Twitter, Instagram and Youtube, adding your own services, and creatively reusing components for other purposes.</p> <p><b>Jeff Stieler</b></p> <p>Jeff started his WordPress journey in 2009 with Voce Communications working on projects for CBS, The Pioneer Woman, and Sony. He has contributed to the WordPress iOS app, WordPress Core, and several WordPress community plugins. Jeff has led development on projects as small as corporate blogs to large digital magazine publishing systems and now heads up the development team for Voce Platforms.</p>' );
+
+		$item->add_meta( 'venue', array(
+			'id'        => 12991092,
+			'zip'       => '84020',
+			'lon'       => -111.855865,
+			'repinned'  => false,
+			'name'      => 'Mojo Themes',
+			'state'     => 'UT',
+			'address_1' => '12159 S. Business Park Dr.',
+			'lat'       => 40.52499,
+			'city'      => 'Draper',
+			'country'   => 'us'
+		) );
+
+		$response->add_item( $item );
+
 		return $response;
 	}
 
