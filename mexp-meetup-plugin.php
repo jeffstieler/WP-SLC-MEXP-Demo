@@ -45,10 +45,10 @@ class WPSLC_MEXP_Meetup_Template extends MEXP_Template {
 
 				<div class="mexp-item-main">
 					<div class="mexp-item-content">
-						{{ data.content }}
-					</div>
-					<div class="mexp-item-date">
-						{{ data.date }}
+						<h3>{{ data.content }}</h3>
+						<span class="meetup-group">{{ data.meta.group.name }}</span>
+						<span class="event-time">{{ data.date }}</span>
+						{{{ data.meta.description }}}
 					</div>
 				</div>
 
@@ -145,14 +145,14 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 		$item->add_meta( 'venue', array(
 			'id'        => 12991092,
 			'zip'       => '84020',
-			'lon'       => -111.855865,
-			'repinned'  => false,
 			'name'      => 'Mojo Themes',
 			'state'     => 'UT',
 			'address_1' => '12159 S. Business Park Dr.',
-			'lat'       => 40.52499,
-			'city'      => 'Draper',
-			'country'   => 'us'
+			'city'      => 'Draper'
+		) );
+
+		$item->add_meta( 'group', array(
+			'name' => 'SLC WordPress Meetup Group'
 		) );
 
 		$response->add_item( $item );
