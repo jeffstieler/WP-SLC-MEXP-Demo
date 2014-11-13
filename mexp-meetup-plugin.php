@@ -40,7 +40,7 @@ class WPSLC_MEXP_Meetup_Template extends MEXP_Template {
 	 */
 	public function item( $id, $tab ) {
 	?>
-		<div id="mexp-item-<?php echo esc_attr( $tab ); ?>-{{ data.id }}" class="mexp-item-area mexp-item" data-id="{{ data.id }}">
+		<div id="mexp-item-<?php echo esc_attr( $tab ); ?>-{{ data.id }}" class="mexp-item-area" data-id="{{ data.id }}">
 			<div class="mexp-item-container clearfix">
 
 				<div class="mexp-item-main">
