@@ -42,9 +42,6 @@ class WPSLC_MEXP_Meetup_Template extends MEXP_Template {
 	?>
 		<div id="mexp-item-<?php echo esc_attr( $tab ); ?>-{{ data.id }}" class="mexp-item-area mexp-item" data-id="{{ data.id }}">
 			<div class="mexp-item-container clearfix">
-				<div class="mexp-item-thumb">
-					<img src="{{ data.thumbnail }}">
-				</div>
 
 				<div class="mexp-item-main">
 					<div class="mexp-item-content">
