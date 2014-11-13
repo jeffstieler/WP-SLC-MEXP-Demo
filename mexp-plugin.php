@@ -179,8 +179,8 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 	 public function labels( array $labels ) {
 	 	$labels['wpslc_meetup_service'] = array(
 			'insert'    => __( 'Insert', 'mexp' ),
-			'noresults' => __( 'No awesome things matched your search query.', 'mexp' ),
-			'title'     => __( 'Insert Awesome Thing', 'mexp' ),
+			'noresults' => __( 'No events matched your search query.', 'mexp' ),
+			'title'     => __( 'Insert Meetup', 'mexp' ),
 		);
 
 	 	return $labels;
