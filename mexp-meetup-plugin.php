@@ -138,7 +138,7 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 		$item->set_url( 'http://www.meetup.com/SLC-WordPress-Meetup-Group/events/217604542/' );
 		$item->set_content( 'November 19th — Jeff Stieler — Better embeds with the Media Explorer' );
 		$item->set_date( 1416448800 - 25200 );
-		$item->set_date_format( 'g:i A - j M y' );
+		$item->set_date_format( 'l, M j, Y, g:i A' );
 
 		$item->add_meta( 'description', '<p>Using the Media Explorer plugin for better embeds from Twitter, Instagram and Youtube, adding your own services, and creatively reusing components for other purposes.</p> <p><b>Jeff Stieler</b></p> <p>Jeff started his WordPress journey in 2009 with Voce Communications working on projects for CBS, The Pioneer Woman, and Sony. He has contributed to the WordPress iOS app, WordPress Core, and several WordPress community plugins. Jeff has led development on projects as small as corporate blogs to large digital magazine publishing systems and now heads up the development team for Voce Platforms.</p>' );
 
