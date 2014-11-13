@@ -119,36 +119,11 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 	 * @return MEXP_Response|bool|WP_Error A MEXP_Response object should be returned on success, boolean false should be returned if there are no results to show, and a WP_Error should be returned if there is an error.
 	 */
 	public function request( array $request ) {
-		// You'll want to handle connection errors to your service here. Look at the Twitter and YouTube implementations for how you could do this.
 
-		$query = new WP_Query(array(
-			'posts_per_page' => 20,
-			'meta_query' => array(
-				array(
-					'key' => '_thumbnail_id'
-				)
-			)
-		));
+		// You'll want to handle connection errors to your service here. Look at the Twitter and YouTube implementations for how you could do this.
 
 		// Create the response for the API
 		$response = new MEXP_Response();
-
-		while ( $query->have_posts() ) {
-			$query->the_post();
-			$item = new MEXP_Response_Item();
-
-			$thumbnail_id = get_post_thumbnail_id();
-			$thumbnail = wp_get_attachment_image_src( $thumbnail_id )[0];
-
-			$item->set_content( get_the_title() );
-			$item->set_date( strtotime( '01-08-2013' ) );
-			$item->set_date_format( 'g:i A - j M y' );
-			$item->set_id( get_the_ID() );
-			$item->set_thumbnail( $thumbnail );
-			$item->url = '[post id="'.get_the_ID().'"]';
-
-			$response->add_item( $item );
-		}
 
 		return $response;
 	}
