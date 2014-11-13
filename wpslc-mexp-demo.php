@@ -10,4 +10,4 @@
  * Version: 0.1
  */
 
-require( 'mexp-plugin.php' );
+require( 'mexp-meetup-plugin.php' );
