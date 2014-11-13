@@ -20,7 +20,7 @@ add_filter( 'mexp_services', 'wpslc_add_mexp_meetup_service' );
 /**
  * Backbone templates for various views for your new service
  */
-class Test_MEXP_New_Template extends MEXP_Template {
+class WPSLC_MEXP_Meetup_Template extends MEXP_Template {
 
 	/**
 	 * Outputs the Backbone template for an item within search results.
@@ -99,7 +99,7 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 	 * Creates the Backbone view template.
 	 */
 	public function __construct() {
-		$this->set_template( new Test_MEXP_New_Template );
+		$this->set_template( new WPSLC_MEXP_Meetup_Template );
 	}
 
 	/**
