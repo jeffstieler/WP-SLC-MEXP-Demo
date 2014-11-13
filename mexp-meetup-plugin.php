@@ -4,6 +4,16 @@
  */
 
 /**
+ * Add a stylesheet for our new service.
+ */
+function wpslc_add_mexp_meetup_style() {
+
+	wp_enqueue_style( 'wpslc_mexp_meetup', plugins_url( 'mexp-meetup.css', __FILE__ ) );
+
+}
+add_action( 'mexp_enqueue', 'wpslc_add_mexp_meetup_style' );
+
+/**
  * Create our new service. Everything starts here.
  *
  * @param array $services Associative array of Media Explorer services to load; key is a string, value is a MEXP_Template object.
