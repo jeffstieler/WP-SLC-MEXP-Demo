@@ -1,27 +1,7 @@
 <?php
-/*
-Plugin Name: Example extension for the Media Explorer
-Plugin URI: http://vip.wordpress.com/
-Description: An example implementation of a new service for the Media Explorer.
-Author: Automattic
-Author URI: http://vip.wordpress.com/
-Domain Path: /languages/
-License: GPLv2 or later
-Requires at least: 3.6
-Tested up to: 3.7
-Text Domain: mexp
-Version: 1
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-*/
+/**
+ * Lovingly borrowed from https://gist.github.com/paulgibbs/c4b50d07d04fd8da9410
+ */
 
 /**
  * Create our new service. Everything starts here.
@@ -30,7 +10,7 @@ GNU General Public License for more details.
  * @return array $services Associative array of Media Explorer services to load; key is a string, value is a MEXP_Template object.
  */
 function test_mexp_service_new( array $services ) {
-  // This key name is important. You must use the same name for the tabs() and labels() methods in Test_MEXP_New_Service. 
+  // This key name is important. You must use the same name for the tabs() and labels() methods in Test_MEXP_New_Service.
 	$services['test_mexmp_service'] = new Test_MEXP_New_Service;
 	return $services;
 }
@@ -55,7 +35,7 @@ class Test_MEXP_New_Template extends MEXP_Template {
 				<div class="mexp-item-thumb">
 					<img src="{{ data.thumbnail }}">
 				</div>
-	
+
 				<div class="mexp-item-main">
 					<div class="mexp-item-content">
 						{{ data.content }}
@@ -64,10 +44,10 @@ class Test_MEXP_New_Template extends MEXP_Template {
 						{{ data.date }}
 					</div>
 				</div>
-	
+
 			</div>
 		</div>
-	
+
 		<a href="#" id="mexp-check-{{ data.id }}" data-id="{{ data.id }}" class="check" title="<?php esc_attr_e( 'Deselect', 'mexp' ); ?>">
 			<div class="media-modal-icon"></div>
 		</a>
@@ -115,7 +95,7 @@ class Test_MEXP_New_Service extends MEXP_Service {
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * Creates the Backbone view template.
 	 */
 	public function __construct() {
