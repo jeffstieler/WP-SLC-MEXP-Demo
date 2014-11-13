@@ -9,12 +9,12 @@
  * @param array $services Associative array of Media Explorer services to load; key is a string, value is a MEXP_Template object.
  * @return array $services Associative array of Media Explorer services to load; key is a string, value is a MEXP_Template object.
  */
-function test_mexp_service_new( array $services ) {
+function wpslc_add_mexp_meetup_service( array $services ) {
   // This key name is important. You must use the same name for the tabs() and labels() methods in Test_MEXP_New_Service.
-	$services['test_mexmp_service'] = new Test_MEXP_New_Service;
+	$services['wpslc_meetup_service'] = new WPSLC_MEXP_Meetup_Service;
 	return $services;
 }
-add_filter( 'mexp_services', 'test_mexp_service_new' );
+add_filter( 'mexp_services', 'wpslc_add_mexp_meetup_service' );
 
 
 /**
@@ -91,7 +91,7 @@ class Test_MEXP_New_Template extends MEXP_Template {
  * Your new service.
  *
  */
-class Test_MEXP_New_Service extends MEXP_Service {
+class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 
 	/**
 	 * Constructor.
@@ -160,7 +160,7 @@ class Test_MEXP_New_Service extends MEXP_Service {
 	 * @return array Associative array of tabs. The key is the tab ID and the value is an array of tab attributes.
 	 */
 	public function tabs( array $tabs ) {
-		$tabs['test_mexmp_service'] = array(
+		$tabs['wpslc_meetup_service'] = array(
 			'all' => array(
 				'defaultTab' => true,
 				'text'       => _x( 'All', 'Tab title', 'mexp' ),
@@ -177,7 +177,7 @@ class Test_MEXP_New_Service extends MEXP_Service {
 	 * @return array Associative array of labels.
 	 */
 	 public function labels( array $labels ) {
-	 	$labels['test_mexmp_service'] = array(
+	 	$labels['wpslc_meetup_service'] = array(
 			'insert'    => __( 'Insert', 'mexp' ),
 			'noresults' => __( 'No awesome things matched your search query.', 'mexp' ),
 			'title'     => __( 'Insert Awesome Thing', 'mexp' ),
