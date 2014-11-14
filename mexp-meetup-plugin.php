@@ -127,14 +127,17 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 	 */
 	public function request( array $request ) {
 
+		// it's a good idea to keep our API key out of the code
 		$api_key = (string) apply_filters( 'mexp_meetup_api_key', '' );
 
+		// exit with an error if the API key value wasn't filtered in
 		if ( empty( $api_key ) ) {
 
 			return new WP_Error( 'missing_meetup_api_key', 'Missing API key for Meetup' );
 
 		}
 
+		// build the Meetup API request URL (hitting /open_events/ endpoint)
 		$api_params = array(
 			'key'  => $api_key,
 			'text' => $request['params']['q'],
@@ -142,14 +145,18 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 		);
 
 		$meetup_request_url = add_query_arg( $api_params, 'https://api.meetup.com/2/open_events' );
+
+		// actually make the request, setting a timeout of 10 seconds in case the network is slow
 		$meetup_response    = wp_remote_get( $meetup_request_url, array( 'timeout' => 10 ) );
 
+		// exit with an error if something went wrong with the request (usually a timeout)
 		if ( is_wp_error( $meetup_response ) ) {
 
 			return $meetup_response;
 
 		}
 
+		// successful responses have an HTTP response code of 200 "OK"
 		$meetup_response_code = wp_remote_retrieve_response_code( $meetup_response );
 
 		if ( 200 !== $meetup_response_code ) {
@@ -158,15 +165,25 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 
 		}
 
+		// the Meetup API responds in JSON by default
 		$response_data = json_decode( wp_remote_retrieve_body( $meetup_response ) );
 
+		// exit with an error if the JSON decode fails
+		if ( is_null( $response_data ) ) {
+
+			return new WP_Error( 'json_parse_error', 'Error parsing JSON response from Meetup API' );
+
+		}
+
+		// the Meetup API will populate "problem", "code", and "details" if a required
+		// field is missing, or some other API error occurred
 		if ( isset( $response_data->problem ) ) {
 
 			return new WP_Error( $response_data->code, $response_data->problem, $response_data->details );
 
 		}
 
-		// Assume we're good from here - create the response for MEXP
+		// *wipes brow* assume we're good from here - create the response for MEXP
 		$mexp_response = new MEXP_Response();
 
 		foreach ( $response_data->results as $event ) {
