@@ -140,7 +140,7 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 		// build the Meetup API request URL (hitting /open_events/ endpoint)
 		$page_size    = 5;
 		$request_page = $request['page'] ? (int) $request['page'] : 1;
-		$offset       = $request_page * ( $page_size - 1 );
+		$offset       = ( $request_page - 1 ) * $page_size;
 
 		$api_params = array(
 			'key'    => $api_key,
