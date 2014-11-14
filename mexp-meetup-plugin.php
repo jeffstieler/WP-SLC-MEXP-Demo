@@ -4,16 +4,6 @@
  */
 
 /**
- * Add a stylesheet for our new service.
- */
-function wpslc_add_mexp_meetup_style() {
-
-	wp_enqueue_style( 'wpslc_mexp_meetup', plugins_url( 'mexp-meetup.css', __FILE__ ) );
-
-}
-add_action( 'mexp_enqueue', 'wpslc_add_mexp_meetup_style' );
-
-/**
  * Create our new service. Everything starts here.
  *
  * @param array $services Associative array of Media Explorer services to load; key is a string, value is a MEXP_Template object.
@@ -115,8 +105,20 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 	 * Allows the service to enqueue JS/CSS only when it's required. Akin to WordPress' load action.
 	 */
 	public function load() {
+
 		add_filter( 'mexp_tabs',   array( $this, 'tabs' ),   10, 1 );
 		add_filter( 'mexp_labels', array( $this, 'labels' ), 10, 1 );
+		add_action( 'mexp_enqueue', array( $this, 'enqueue_statics' ) );
+
+	}
+
+	/**
+	 * Add a stylesheet for our new service.
+	 */
+	function enqueue_statics() {
+
+		wp_enqueue_style( 'wpslc_mexp_meetup', plugins_url( 'mexp-meetup.css', __FILE__ ) );
+
 	}
 
 	/**
