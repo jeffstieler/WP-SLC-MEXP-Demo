@@ -197,8 +197,7 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 			$item->set_date( ( $event->time / 1000 ) + ( $event->utc_offset / 1000 ) );
 			$item->set_date_format( 'l, M j, Y, g:i A' );
 
-			$item->add_meta( 'description', $event->description );
-			$item->add_meta( 'venue', (array) $event->venue );
+			$item->add_meta( 'description', isset( $event->description ) ? $event->description : '' );
 			$item->add_meta( 'group', (array) $event->group );
 
 			$mexp_response->add_item( $item );
