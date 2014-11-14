@@ -138,10 +138,15 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 		}
 
 		// build the Meetup API request URL (hitting /open_events/ endpoint)
+		$page_size    = 5;
+		$request_page = $request['page'] ? (int) $request['page'] : 1;
+		$offset       = $request_page * ( $page_size - 1 );
+
 		$api_params = array(
-			'key'  => $api_key,
-			'text' => $request['params']['q'],
-			'page' => 5
+			'key'    => $api_key,
+			'text'   => $request['params']['q'],
+			'page'   => $page_size,
+			'offset' => $offset
 		);
 
 		$meetup_request_url = add_query_arg( $api_params, 'https://api.meetup.com/2/open_events' );
