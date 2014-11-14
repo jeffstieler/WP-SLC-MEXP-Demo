@@ -127,37 +127,68 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 	 */
 	public function request( array $request ) {
 
-		// You'll want to handle connection errors to your service here. Look at the Twitter and YouTube implementations for how you could do this.
+		$api_key = (string) apply_filters( 'mexp_meetup_api_key', '' );
 
-		// Create the response for the API
-		$response = new MEXP_Response();
+		if ( empty( $api_key ) ) {
 
-		$item = new MEXP_Response_Item();
+			return new WP_Error( 'missing_meetup_api_key', 'Missing API key for Meetup' );
 
-		$item->set_id( '217604542' );
-		$item->set_url( 'http://www.meetup.com/SLC-WordPress-Meetup-Group/events/217604542/' );
-		$item->set_content( 'November 19th — Jeff Stieler — Better embeds with the Media Explorer' );
-		$item->set_date( 1416448800 - 25200 );
-		$item->set_date_format( 'l, M j, Y, g:i A' );
+		}
 
-		$item->add_meta( 'description', '<p>Using the Media Explorer plugin for better embeds from Twitter, Instagram and Youtube, adding your own services, and creatively reusing components for other purposes.</p> <p><b>Jeff Stieler</b></p> <p>Jeff started his WordPress journey in 2009 with Voce Communications working on projects for CBS, The Pioneer Woman, and Sony. He has contributed to the WordPress iOS app, WordPress Core, and several WordPress community plugins. Jeff has led development on projects as small as corporate blogs to large digital magazine publishing systems and now heads up the development team for Voce Platforms.</p>' );
+		$api_params = array(
+			'key'  => $api_key,
+			'text' => $request['params']['q'],
+			'page' => 5
+		);
 
-		$item->add_meta( 'venue', array(
-			'id'        => 12991092,
-			'zip'       => '84020',
-			'name'      => 'Mojo Themes',
-			'state'     => 'UT',
-			'address_1' => '12159 S. Business Park Dr.',
-			'city'      => 'Draper'
-		) );
+		$meetup_request_url = add_query_arg( $api_params, 'https://api.meetup.com/2/open_events' );
+		$meetup_response    = wp_remote_get( $meetup_request_url, array( 'timeout' => 10 ) );
 
-		$item->add_meta( 'group', array(
-			'name' => 'SLC WordPress Meetup Group'
-		) );
+		if ( is_wp_error( $meetup_response ) ) {
 
-		$response->add_item( $item );
+			return $meetup_response;
 
-		return $response;
+		}
+
+		$meetup_response_code = wp_remote_retrieve_response_code( $meetup_response );
+
+		if ( 200 !== $meetup_response_code ) {
+
+			return new WP_Error( $meetup_response_code, 'Non 200 HTTP Response from Meetup API' );
+
+		}
+
+		$response_data = json_decode( wp_remote_retrieve_body( $meetup_response ) );
+
+		if ( isset( $response_data->problem ) ) {
+
+			return new WP_Error( $response_data->code, $response_data->problem, $response_data->details );
+
+		}
+
+		// Assume we're good from here - create the response for MEXP
+		$mexp_response = new MEXP_Response();
+
+		foreach ( $response_data->results as $event ) {
+
+			$item = new MEXP_Response_Item();
+
+			$item->set_id( $event->id );
+			$item->set_url( $event->event_url );
+			$item->set_content( $event->name );
+			$item->set_date( 1416448800 - 25200 );
+			$item->set_date( ( $event->time / 1000 ) + ( $event->utc_offset / 1000 ) );
+			$item->set_date_format( 'l, M j, Y, g:i A' );
+
+			$item->add_meta( 'description', $event->description );
+			$item->add_meta( 'venue', (array) $event->venue );
+			$item->add_meta( 'group', (array) $event->group );
+
+			$mexp_response->add_item( $item );
+
+		}
+
+		return $mexp_response;
 	}
 
 	/**
