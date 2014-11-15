@@ -11,3 +11,5 @@
  */
 
 require( 'mexp-meetup-plugin.php' );
+
+require( 'featured-youtube-video.php' );
