@@ -20,10 +20,16 @@ class Featured_Youtube_Video {
 
 	/**
 	 * Enqueue javascript dependency
+	 *
+	 * @param string $hook_suffix
 	 */
-	function enqueue_script() {
+	function enqueue_script( $hook_suffix ) {
 
-		wp_enqueue_script( 'featured-youtube-video', plugins_url( 'featured-youtube-video.js', __FILE__ ), array( 'jquery', 'underscore' ), false, true );
+		if ( in_array( $hook_suffix, array( 'post.php', 'post-new.php' ) ) && ( 'post' === get_post_type() ) ) {
+
+			wp_enqueue_script( 'featured-youtube-video', plugins_url( 'featured-youtube-video.js', __FILE__ ), array( 'jquery', 'underscore' ), false, true );
+
+		}
 
 	}
 
