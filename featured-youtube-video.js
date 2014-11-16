@@ -51,7 +51,7 @@
 				id      : id,
 				router  : id + '-router',
 				toolbar : id + '-toolbar',
-				title   : service.labels.title,
+				title   : 'Select Featured Youtube Video',
 				tabs    : service.tabs
 			};
 
