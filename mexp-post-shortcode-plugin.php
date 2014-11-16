@@ -207,7 +207,7 @@ class WPSLC_MEXP_Post_Shortcode_Service extends MEXP_Service {
 	 	$labels['wpslc_post_shortcode_service'] = array(
 			'insert'    => __( 'Insert', 'mexp' ),
 			'noresults' => __( 'No posts matched your search query.', 'mexp' ),
-			'title'     => __( 'Insert Post Shortcode', 'mexp' ),
+			'title'     => __( 'Insert Post', 'mexp' ),
 		);
 
 	 	return $labels;
