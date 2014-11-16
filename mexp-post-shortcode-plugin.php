@@ -108,8 +108,20 @@ class WPSLC_MEXP_Post_Shortcode_Service extends MEXP_Service {
 	 * Allows the service to enqueue JS/CSS only when it's required. Akin to WordPress' load action.
 	 */
 	public function load() {
+
 		add_filter( 'mexp_tabs',   array( $this, 'tabs' ),   10, 1 );
 		add_filter( 'mexp_labels', array( $this, 'labels' ), 10, 1 );
+		add_action( 'mexp_enqueue', array( $this, 'enqueue_statics' ) );
+
+	}
+
+	/**
+	 * Add a stylesheet for our new service.
+	 */
+	function enqueue_statics() {
+
+		wp_enqueue_style( 'wpslc_mexp_post_shortcode', plugins_url( 'mexp-post-shortcode.css', __FILE__ ) );
+
 	}
 
 	/**
