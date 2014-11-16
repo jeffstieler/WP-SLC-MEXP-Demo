@@ -8,6 +8,30 @@
 		$input = $('#featured-youtube-video-url'),
 		$preview = $('.featured-youtube-video-preview');
 
+	var YoutubeFrameController = media.controller.MEXP.extend({
+		mexpInsert: function() {
+
+			var selection = this.frame.content.get().getSelection(),
+			urls          = [];
+
+			selection.each( function( model ) {
+				urls.push( model.get( 'url' ) );
+			}, this );
+
+			var url = urls[0];
+
+			$input.val(url);
+			$preview.html( '<iframe width="475" height="265" frameborder="0" allowfullscreen src="' + url.replace('watch?v=', 'embed/') + '"></iframe>' );
+
+			$set_link.addClass('hidden');
+			$remove_link.removeClass('hidden');
+
+			selection.reset();
+			this.frame.close();
+
+		}
+	});
+
 	var YoutubeFrame = media.view.MediaFrame.extend({
 		initialize: function() {
 			/**
@@ -43,7 +67,7 @@
 			}
 
 			this.states.add([
-				new media.controller.MEXP( controller )
+				new YoutubeFrameController( controller )
 			]);
 
 			// Tabs
