@@ -10,8 +10,10 @@
  * Version: 0.1
  */
 
-require( 'mexp-meetup-plugin.php' );
+foreach ( glob( dirname( __FILE__ ) . '/services/*/service.php' ) as $service ) {
 
-require( 'mexp-post-shortcode-plugin.php' );
+	require( $service );
+
+}
 
 require( 'featured-youtube-video.php' );
