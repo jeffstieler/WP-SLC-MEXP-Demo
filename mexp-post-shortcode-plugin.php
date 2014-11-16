@@ -30,7 +30,7 @@ class WPSLC_MEXP_Post_Shortcode_Template extends MEXP_Template {
 	 */
 	public function item( $id, $tab ) {
 	?>
-		<div id="mexp-item-<?php echo esc_attr( $tab ); ?>-{{ data.id }}" class="mexp-item-area mexp-item" data-id="{{ data.id }}">
+		<div id="mexp-item-<?php echo esc_attr( $tab ); ?>-{{ data.id }}" class="mexp-item-area" data-id="{{ data.id }}">
 			<div class="mexp-item-container clearfix">
 				<div class="mexp-item-thumb">
 					<img src="{{ data.thumbnail }}">
@@ -119,21 +119,53 @@ class WPSLC_MEXP_Post_Shortcode_Service extends MEXP_Service {
 	 * @return MEXP_Response|bool|WP_Error A MEXP_Response object should be returned on success, boolean false should be returned if there are no results to show, and a WP_Error should be returned if there is an error.
 	 */
 	public function request( array $request ) {
-		// You'll want to handle connection errors to your service here. Look at the Twitter and YouTube implementations for how you could do this.
+
+		// we're just querying for posts
+		$query = new WP_Query( array(
+			's'              => $request['params']['q'],
+			'post_type'      => 'post',
+			'posts_per_page' => 15,
+			'paged'          => $request['page'] ? (int) $request['page'] : 1,
+			'post_status'    => 'publish'
+		) );
+
+		if ( ! $query->have_posts() ) {
+			return false;
+		}
 
 		// Create the response for the API
 		$response = new MEXP_Response();
 
-		$item = new MEXP_Response_Item();
-		$item->set_content( 'WordPress 3.6 â€œOscarâ€' );
-		$item->set_date( strtotime( '01-08-2013' ) );
-		$item->set_date_format( 'g:i A - j M y' );
-		$item->set_id( 117 );
-		$item->set_thumbnail( 'https://i.ytimg.com/vi/pAHn9f6At_g/mqdefault.jpg' );
-		$item->set_url( esc_url_raw( 'http://www.youtube.com/watch?v=0kzhpkam7t8' ) );
+		foreach ( $query->posts as $post ) {
 
-		$response->add_item( $item );
+			$item = new MEXP_Response_Item();
+
+			$item->set_content( $post->post_title );
+			$item->set_date( strtotime( $post->post_date ) );
+			$item->set_date_format( 'g:i A - j M y' );
+			$item->set_id( $post->ID );
+			$item->url = sprintf( '[post id="%d"]', $post->ID );
+
+			$thumbnail_id = get_post_thumbnail_id( $post->ID );
+
+			if ( $thumbnail_id ) {
+
+				$image = wp_get_attachment_image_src( $thumbnail_id );
+
+				$item->set_thumbnail( $image[0] );
+
+			} else {
+
+				$item->set_thumbnail( plugins_url( 'placeholder.jpg', __FILE__ ) );
+
+			}
+
+			$response->add_item( $item );
+
+		}
+
 		return $response;
+
 	}
 
 	/**
