@@ -75,7 +75,26 @@
 			this.on( 'router:render:' + id + '-router', _.bind( pf_prototype.mexpRouterRender, this, service ) );
 
 			// Toolbar
-			this.on( 'toolbar:create:' + id + '-toolbar', pf_prototype.mexpToolbarCreate, this );
+			this.on( 'toolbar:create:' + id + '-toolbar', this.toolbarCreate, this );
+
+		},
+
+		toolbarCreate : function( toolbar ) {
+
+			toolbar.view = new media.view.Toolbar.MEXP( {
+				controller : this,
+				items: {
+					inserter     : {
+						id       : 'mexp-button',
+						style    : 'primary',
+						text     : 'Set as featured',
+						priority : 80,
+						click    : function() {
+							this.controller.state().mexpInsert();
+						}
+					}
+				}
+			} );
 
 		}
 
