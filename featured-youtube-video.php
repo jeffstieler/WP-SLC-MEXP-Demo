@@ -12,6 +12,17 @@ class Featured_Youtube_Video {
 
 		add_action( 'add_meta_boxes_post', array( $this, 'register_meta_box' ) );
 
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_script' ) );
+
+	}
+
+	/**
+	 * Enqueue javascript dependency
+	 */
+	function enqueue_script() {
+
+		wp_enqueue_script( 'featured-youtube-video', plugins_url( 'featured-youtube-video.js', __FILE__ ), array( 'jquery', 'underscore' ), false, true );
+
 	}
 
 	/**
