@@ -49,7 +49,7 @@ class Featured_Youtube_Video {
 	 */
 	function save_featured_video_url( $post_id ) {
 
-		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
+		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) || ( 'post' !== get_post_type( $post_id ) ) ) {
 
 			return $post_id;
 
