@@ -58,7 +58,7 @@ class Featured_Youtube_Video {
 
 		?>
 		<input type="hidden" name="featured-youtube-video" id="featured-youtube-video-url" value="<?php echo esc_url( $featured_video ); ?>" />
-		<div class="featured-youtube-video-preview"></div>
+		<pre class="featured-youtube-video-preview"><?php echo esc_url( $featured_video ); ?></pre>
 		<a href="#" class="<?php echo implode( ' ', $set_link_classes ); ?>">Set featured Youtube video</a>
 		<a href="#" class="<?php echo implode( ' ', $remove_link_classes ); ?>">Remove featured Youtube video</a>
 		<?php
