@@ -14,6 +14,8 @@ class Featured_Youtube_Video {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_script' ) );
 
+		add_action( 'save_post', array( $this, 'save_featured_video_url' ) );
+
 	}
 
 	/**
@@ -31,6 +33,25 @@ class Featured_Youtube_Video {
 	function register_meta_box() {
 
 		add_meta_box( 'featured-youtube-video', 'Featured Youtube Video', array( $this, 'display_meta_box' ), 'post', 'normal' );
+
+	}
+
+	/**
+	 * Save the featured video URL on post save
+	 *
+	 * @param WP_Post $post
+	 */
+	function save_featured_video_url( $post_id ) {
+
+		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
+
+			return $post_id;
+
+		}
+
+		$featured_video_url = isset( $_POST['featured-youtube-video'] ) ? esc_url( $_POST['featured-youtube-video'] ) : '';
+
+		update_post_meta( $post_id, 'featured-youtube-video', $featured_video_url );
 
 	}
 
