@@ -8,6 +8,9 @@
 		$input = $('#featured-youtube-video-url'),
 		$preview = $('.featured-youtube-video-preview');
 
+	/**
+	 * Override the MEXP controller to change insert functionality
+	 */
 	var YoutubeFrameController = media.controller.MEXP.extend({
 		mexpInsert: function() {
 
@@ -32,6 +35,9 @@
 		}
 	});
 
+	/**
+	 * Extend MediaFrame and reuse MEXP logic to setup just the MEXP Youtube router/toolbar/content
+	 */
 	var YoutubeFrame = media.view.MediaFrame.extend({
 		initialize: function() {
 			/**
@@ -79,6 +85,9 @@
 
 		},
 
+		/**
+		 * Custom toolbar creation method so we can set our own button text
+		 */
 		toolbarCreate : function( toolbar ) {
 
 			toolbar.view = new media.view.Toolbar.MEXP( {
