@@ -117,7 +117,7 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 	 */
 	function enqueue_statics() {
 
-		wp_enqueue_style( 'wpslc_mexp_meetup', plugins_url( 'mexp-meetup.css', __FILE__ ) );
+		wp_enqueue_style( 'wpslc_mexp_meetup', plugins_url( 'style.css', __FILE__ ) );
 
 	}
 

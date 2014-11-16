@@ -120,7 +120,7 @@ class WPSLC_MEXP_Post_Shortcode_Service extends MEXP_Service {
 	 */
 	function enqueue_statics() {
 
-		wp_enqueue_style( 'wpslc_mexp_post_shortcode', plugins_url( 'mexp-post-shortcode.css', __FILE__ ) );
+		wp_enqueue_style( 'wpslc_mexp_post_shortcode', plugins_url( 'style.css', __FILE__ ) );
 
 	}
 
