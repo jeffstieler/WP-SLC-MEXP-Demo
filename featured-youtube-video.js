@@ -2,7 +2,11 @@
 
 	var media = wp.media,
 		service = mexp.services.youtube,
-		pf_prototype = media.view.MediaFrame.Post.prototype;
+		pf_prototype = media.view.MediaFrame.Post.prototype,
+		$set_link = $('.set-featured-youtube-video'),
+		$remove_link = $('.remove-featured-youtube-video'),
+		$input = $('#featured-youtube-video-url'),
+		$preview = $('.featured-youtube-video-preview');
 
 	var YoutubeFrame = media.view.MediaFrame.extend({
 		initialize: function() {
@@ -55,11 +59,25 @@
 
 	var frame = new YoutubeFrame();
 
-	$('.set-featured-youtube-video').click(function(e) {
+	$set_link.click(function(e) {
 
 		e.preventDefault();
 
 		frame.open();
+
+	});
+
+	$remove_link.click(function(e) {
+
+		e.preventDefault();
+
+		$set_link.removeClass('hidden');
+
+		$input.val('');
+
+		$preview.html('');
+
+		$remove_link.addClass('hidden');
 
 	});
 
