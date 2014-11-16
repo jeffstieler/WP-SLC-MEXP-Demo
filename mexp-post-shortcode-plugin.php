@@ -9,18 +9,18 @@
  * @param array $services Associative array of Media Explorer services to load; key is a string, value is a MEXP_Template object.
  * @return array $services Associative array of Media Explorer services to load; key is a string, value is a MEXP_Template object.
  */
-function test_mexp_service_new( array $services ) {
+function wpslc_add_mexp_post_shortcode_service( array $services ) {
   // This key name is important. You must use the same name for the tabs() and labels() methods in Test_MEXP_New_Service.
-	$services['test_mexmp_service'] = new Test_MEXP_New_Service;
+	$services['wpslc_post_shortcode_service'] = new WPSLC_MEXP_Post_Shortcode_Service;
 	return $services;
 }
-add_filter( 'mexp_services', 'test_mexp_service_new' );
+add_filter( 'mexp_services', 'wpslc_add_mexp_post_shortcode_service' );
 
 
 /**
  * Backbone templates for various views for your new service
  */
-class Test_MEXP_New_Template extends MEXP_Template {
+class WPSLC_MEXP_Post_Shortcode_Template extends MEXP_Template {
 
 	/**
 	 * Outputs the Backbone template for an item within search results.
@@ -77,7 +77,7 @@ class Test_MEXP_New_Template extends MEXP_Template {
 				value="{{ data.params.q }}"
 				class="mexp-input-text mexp-input-search"
 				size="40"
-				placeholder="<?php esc_attr_e( 'Search for anything!', 'mexp' ); ?>"
+				placeholder="<?php esc_attr_e( 'Search for posts', 'mexp' ); ?>"
 			>
 			<input class="button button-large" type="submit" value="<?php esc_attr_e( 'Search', 'mexp' ); ?>">
 
@@ -91,7 +91,7 @@ class Test_MEXP_New_Template extends MEXP_Template {
  * Your new service.
  *
  */
-class Test_MEXP_New_Service extends MEXP_Service {
+class WPSLC_MEXP_Post_Shortcode_Service extends MEXP_Service {
 
 	/**
 	 * Constructor.
@@ -99,7 +99,7 @@ class Test_MEXP_New_Service extends MEXP_Service {
 	 * Creates the Backbone view template.
 	 */
 	public function __construct() {
-		$this->set_template( new Test_MEXP_New_Template );
+		$this->set_template( new WPSLC_MEXP_Post_Shortcode_Template );
 	}
 
 	/**
@@ -143,7 +143,7 @@ class Test_MEXP_New_Service extends MEXP_Service {
 	 * @return array Associative array of tabs. The key is the tab ID and the value is an array of tab attributes.
 	 */
 	public function tabs( array $tabs ) {
-		$tabs['test_mexmp_service'] = array(
+		$tabs['wpslc_post_shortcode_service'] = array(
 			'all' => array(
 				'defaultTab' => true,
 				'text'       => _x( 'All', 'Tab title', 'mexp' ),
@@ -160,10 +160,10 @@ class Test_MEXP_New_Service extends MEXP_Service {
 	 * @return array Associative array of labels.
 	 */
 	 public function labels( array $labels ) {
-	 	$labels['test_mexmp_service'] = array(
+	 	$labels['wpslc_post_shortcode_service'] = array(
 			'insert'    => __( 'Insert', 'mexp' ),
-			'noresults' => __( 'No awesome things matched your search query.', 'mexp' ),
-			'title'     => __( 'Insert Awesome Thing', 'mexp' ),
+			'noresults' => __( 'No posts matched your search query.', 'mexp' ),
+			'title'     => __( 'Insert Post Shortcode', 'mexp' ),
 		);
 
 	 	return $labels;
