@@ -4,87 +4,6 @@
  */
 
 /**
- * Create our new service. Everything starts here.
- *
- * @param array $services Associative array of Media Explorer services to load; key is a string, value is a MEXP_Template object.
- * @return array $services Associative array of Media Explorer services to load; key is a string, value is a MEXP_Template object.
- */
-function wpslc_add_mexp_meetup_service( array $services ) {
-  // This key name is important. You must use the same name for the tabs() and labels() methods in Test_MEXP_New_Service.
-	$services['wpslc_meetup_service'] = new WPSLC_MEXP_Meetup_Service;
-	return $services;
-}
-add_filter( 'mexp_services', 'wpslc_add_mexp_meetup_service' );
-
-
-/**
- * Backbone templates for various views for your new service
- */
-class WPSLC_MEXP_Meetup_Template extends MEXP_Template {
-
-	/**
-	 * Outputs the Backbone template for an item within search results.
-	 *
-	 * @param string $id  The template ID.
-	 * @param string $tab The tab ID.
-	 */
-	public function item( $id, $tab ) {
-	?>
-		<div id="mexp-item-<?php echo esc_attr( $tab ); ?>-{{ data.id }}" class="mexp-item-area" data-id="{{ data.id }}">
-			<div class="mexp-item-container clearfix">
-
-				<div class="mexp-item-main">
-					<div class="mexp-item-content">
-						<h3>{{ data.content }}</h3>
-						<span class="meetup-group">{{ data.meta.group.name }}</span>
-						<span class="event-time">{{ data.date }}</span>
-						{{{ data.meta.description }}}
-					</div>
-				</div>
-
-			</div>
-		</div>
-
-		<a href="#" id="mexp-check-{{ data.id }}" data-id="{{ data.id }}" class="check" title="<?php esc_attr_e( 'Deselect', 'mexp' ); ?>">
-			<div class="media-modal-icon"></div>
-		</a>
-	<?php
-	}
-
-	/**
-	 * Outputs the Backbone template for a select item's thumbnail in the footer toolbar.
-	 *
-	 * @param string $id The template ID.
-	 */
-	public function thumbnail( $id ) {
-	}
-
-	/**
-	 * Outputs the Backbone template for a tab's search fields.
-	 *
-	 * @param string $id  The template ID.
-	 * @param string $tab The tab ID.
-	 */
-	public function search( $id, $tab ) {
-	?>
-		<form action="#" class="mexp-toolbar-container clearfix tab-all">
-			<input
-				type="text"
-				name="q"
-				value="{{ data.params.q }}"
-				class="mexp-input-text mexp-input-search"
-				size="40"
-				placeholder="<?php esc_attr_e( 'Search Meetup', 'mexp' ); ?>"
-			>
-			<input class="button button-large" type="submit" value="<?php esc_attr_e( 'Search', 'mexp' ); ?>">
-
-			<div class="spinner"></div>
-		</form>
-	<?php
-	}
-}
-
-/**
  * Your new service.
  *
  */
@@ -249,3 +168,83 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 	 	return $labels;
 	}
 }
+
+/**
+ * Backbone templates for various views for your new service
+ */
+class WPSLC_MEXP_Meetup_Template extends MEXP_Template {
+
+	/**
+	 * Outputs the Backbone template for an item within search results.
+	 *
+	 * @param string $id  The template ID.
+	 * @param string $tab The tab ID.
+	 */
+	public function item( $id, $tab ) {
+	?>
+		<div id="mexp-item-<?php echo esc_attr( $tab ); ?>-{{ data.id }}" class="mexp-item-area" data-id="{{ data.id }}">
+			<div class="mexp-item-container clearfix">
+
+				<div class="mexp-item-main">
+					<div class="mexp-item-content">
+						<h3>{{ data.content }}</h3>
+						<span class="meetup-group">{{ data.meta.group.name }}</span>
+						<span class="event-time">{{ data.date }}</span>
+						{{{ data.meta.description }}}
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<a href="#" id="mexp-check-{{ data.id }}" data-id="{{ data.id }}" class="check" title="<?php esc_attr_e( 'Deselect', 'mexp' ); ?>">
+			<div class="media-modal-icon"></div>
+		</a>
+	<?php
+	}
+
+	/**
+	 * Outputs the Backbone template for a select item's thumbnail in the footer toolbar.
+	 *
+	 * @param string $id The template ID.
+	 */
+	public function thumbnail( $id ) {
+	}
+
+	/**
+	 * Outputs the Backbone template for a tab's search fields.
+	 *
+	 * @param string $id  The template ID.
+	 * @param string $tab The tab ID.
+	 */
+	public function search( $id, $tab ) {
+	?>
+		<form action="#" class="mexp-toolbar-container clearfix tab-all">
+			<input
+				type="text"
+				name="q"
+				value="{{ data.params.q }}"
+				class="mexp-input-text mexp-input-search"
+				size="40"
+				placeholder="<?php esc_attr_e( 'Search Meetup', 'mexp' ); ?>"
+			>
+			<input class="button button-large" type="submit" value="<?php esc_attr_e( 'Search', 'mexp' ); ?>">
+
+			<div class="spinner"></div>
+		</form>
+	<?php
+	}
+}
+
+/**
+ * Create our new service. Everything starts here.
+ *
+ * @param array $services Associative array of Media Explorer services to load; key is a string, value is a MEXP_Template object.
+ * @return array $services Associative array of Media Explorer services to load; key is a string, value is a MEXP_Template object.
+ */
+function wpslc_add_mexp_meetup_service( array $services ) {
+  // This key name is important. You must use the same name for the tabs() and labels() methods in Test_MEXP_New_Service.
+	$services['wpslc_meetup_service'] = new WPSLC_MEXP_Meetup_Service;
+	return $services;
+}
+add_filter( 'mexp_services', 'wpslc_add_mexp_meetup_service' );
