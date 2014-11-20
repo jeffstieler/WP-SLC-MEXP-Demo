@@ -121,7 +121,6 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 			$item->set_id( $event->id );
 			$item->set_url( $event->event_url );
 			$item->set_content( $event->name );
-			$item->set_date( 1416448800 - 25200 );
 			$item->set_date( ( $event->time / 1000 ) + ( $event->utc_offset / 1000 ) );
 			$item->set_date_format( 'l, M j, Y, g:i A' );
 
