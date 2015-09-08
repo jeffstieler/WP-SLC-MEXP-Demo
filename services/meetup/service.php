@@ -209,6 +209,7 @@ class WPSLC_MEXP_Meetup_Template extends MEXP_Template {
 	 * @param string $id The template ID.
 	 */
 	public function thumbnail( $id ) {
+		// NOTE: This isn't actually called anywhere in Media Explorer.
 	}
 
 	/**
