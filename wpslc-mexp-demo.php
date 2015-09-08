@@ -10,10 +10,16 @@
  * Version: 0.1
  */
 
-foreach ( glob( dirname( __FILE__ ) . '/services/*/service.php' ) as $service ) {
+function wp_slc_mexp_demo_register_services() {
 
-	require( $service );
+	foreach ( glob( dirname( __FILE__ ) . '/services/*/service.php' ) as $service ) {
+
+		require( $service );
+
+	}
+
+	require( 'featured-youtube-video.php' );
 
 }
 
-require( 'featured-youtube-video.php' );
+add_action( 'mexp_init', 'wp_slc_mexp_demo_register_services' );
