@@ -41,6 +41,39 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 	}
 
 	/**
+	 * Returns an array of tabs (routers) for the service's media manager panel.
+	 *
+	 * @param array $tabs Associative array of default tab items.
+	 * @return array Associative array of tabs. The key is the tab ID and the value is an array of tab attributes.
+	 */
+	public function tabs( array $tabs ) {
+		$tabs['wpslc_meetup_service'] = array(
+			'all' => array(
+				'defaultTab' => true,
+				'text'       => _x( 'All', 'Tab title', 'mexp' ),
+			),
+		);
+
+		return $tabs;
+	}
+
+	/**
+	 * Returns an array of custom text labels for this service.
+	 *
+	 * @param array $labels Associative array of default labels.
+	 * @return array Associative array of labels.
+	 */
+	 public function labels( array $labels ) {
+	 	$labels['wpslc_meetup_service'] = array(
+			'insert'    => __( 'Insert', 'mexp' ),
+			'noresults' => __( 'No events matched your search query.', 'mexp' ),
+			'title'     => __( 'Insert Meetup', 'mexp' ),
+		);
+
+	 	return $labels;
+	}
+
+	/**
 	 * Handles the AJAX request and returns an appropriate response. This should be used, for example, to perform an API request to the service provider and return the results.
 	 *
 	 * @param array $request The request parameters.
@@ -134,38 +167,6 @@ class WPSLC_MEXP_Meetup_Service extends MEXP_Service {
 		return $mexp_response;
 	}
 
-	/**
-	 * Returns an array of tabs (routers) for the service's media manager panel.
-	 *
-	 * @param array $tabs Associative array of default tab items.
-	 * @return array Associative array of tabs. The key is the tab ID and the value is an array of tab attributes.
-	 */
-	public function tabs( array $tabs ) {
-		$tabs['wpslc_meetup_service'] = array(
-			'all' => array(
-				'defaultTab' => true,
-				'text'       => _x( 'All', 'Tab title', 'mexp' ),
-			),
-		);
-
-		return $tabs;
-	}
-
-	/**
-	 * Returns an array of custom text labels for this service.
-	 *
-	 * @param array $labels Associative array of default labels.
-	 * @return array Associative array of labels.
-	 */
-	 public function labels( array $labels ) {
-	 	$labels['wpslc_meetup_service'] = array(
-			'insert'    => __( 'Insert', 'mexp' ),
-			'noresults' => __( 'No events matched your search query.', 'mexp' ),
-			'title'     => __( 'Insert Meetup', 'mexp' ),
-		);
-
-	 	return $labels;
-	}
 }
 
 /**
