@@ -1,4 +1,7 @@
 <?php
+/**
+ * Lovingly borrowed from https://gist.github.com/paulgibbs/c4b50d07d04fd8da9410
+ */
 
 /**
  * Backbone templates for various views for your new service
