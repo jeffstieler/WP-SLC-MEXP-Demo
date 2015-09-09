@@ -24,7 +24,7 @@
 			var url = urls[0];
 
 			$input.val(url);
-			$preview.html( '<iframe width="475" height="265" frameborder="0" allowfullscreen src="' + url.replace('watch?v=', 'embed/') + '"></iframe>' );
+			$preview.html( '<iframe style="max-width: 100%; max-height: 300px;" frameborder="0" allowfullscreen src="' + url.replace('watch?v=', 'embed/') + '"></iframe>' );
 
 			$set_link.addClass('hidden');
 			$remove_link.removeClass('hidden');

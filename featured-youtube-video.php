@@ -87,7 +87,7 @@ class Featured_Youtube_Video {
 		<input type="hidden" name="featured-youtube-video" id="featured-youtube-video-url" value="<?php echo esc_url( $featured_video ); ?>" />
 		<div class="featured-youtube-video-preview">
 		<?php if ( $featured_video ) : ?>
-			<iframe width="475" height="265" frameborder="0" allowfullscreen src="<?php echo str_replace( 'watch?v=', 'embed/', esc_url( $featured_video ) ); ?>"></iframe>
+			<iframe style="max-width: 100%; max-height: 300px;" frameborder="0" allowfullscreen src="<?php echo str_replace( 'watch?v=', 'embed/', esc_url( $featured_video ) ); ?>"></iframe>
 		<?php endif; ?>
 		</div>
 		<a href="#" class="<?php echo implode( ' ', $set_link_classes ); ?>">Set featured Youtube video</a>
