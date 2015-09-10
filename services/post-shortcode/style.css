@@ -1,4 +1,3 @@
-.media-frame .mexp-content.mexp-content-wpslc_post_shortcode_service .mexp-item {
-	height: 250px;
-	overflow: hidden;
+.media-frame .mexp-content.mexp-content-wpslc_post_shortcode_service .mexp-item-thumb img {
+	width: auto;
 }
